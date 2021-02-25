@@ -868,6 +868,14 @@
     "@babel/helper-create-regexp-features-plugin" "^7.12.13"
     "@babel/helper-plugin-utils" "^7.12.13"
 
+"@babel/polyfill@^7.2.5":
+  version "7.12.1"
+  resolved "https://registry.npm.taobao.org/@babel/polyfill/download/@babel/polyfill-7.12.1.tgz?cache=0&sync_timestamp=1608602031530&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fpolyfill%2Fdownload%2F%40babel%2Fpolyfill-7.12.1.tgz#1f2d6371d1261bbd961f3c5d5909150e12d0bd96"
+  integrity sha1-Hy1jcdEmG72WHzxdWQkVDhLQvZY=
+  dependencies:
+    core-js "^2.6.5"
+    regenerator-runtime "^0.13.4"
+
 "@babel/preset-env@7.11.0":
   version "7.11.0"
   resolved "https://registry.npm.taobao.org/@babel/preset-env/download/@babel/preset-env-7.11.0.tgz?cache=0&sync_timestamp=1614089063321&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fpreset-env%2Fdownload%2F%40babel%2Fpreset-env-7.11.0.tgz#860ee38f2ce17ad60480c2021ba9689393efb796"
@@ -1066,6 +1074,14 @@
     "@babel/helper-validator-identifier" "^7.12.11"
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
+
+"@fullpage/react-fullpage@^0.1.19":
+  version "0.1.19"
+  resolved "https://registry.npm.taobao.org/@fullpage/react-fullpage/download/@fullpage/react-fullpage-0.1.19.tgz#770ecfc96475900007ce1c29376da7fa11fb26a8"
+  integrity sha1-dw7PyWR1kAAHzhwpN22n+hH7Jqg=
+  dependencies:
+    "@babel/polyfill" "^7.2.5"
+    fullpage.js "^3.1.0"
 
 "@hapi/address@^4.0.1":
   version "4.1.0"
@@ -4040,7 +4056,7 @@ core-js-compat@^3.6.2:
     browserslist "^4.16.3"
     semver "7.0.0"
 
-core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0:
+core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0, core-js@^2.6.5:
   version "2.6.12"
   resolved "https://registry.npm.taobao.org/core-js/download/core-js-2.6.12.tgz?cache=0&sync_timestamp=1613668840564&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha1-2TM9+nsGXjR8xWgiGdb2kIWcwuw=
@@ -6128,6 +6144,18 @@ fstream@^1.0.0, fstream@^1.0.12:
     mkdirp ">=0.5 0"
     rimraf "2"
 
+fullpage.js@2.9.4:
+  version "2.9.4"
+  resolved "https://registry.npm.taobao.org/fullpage.js/download/fullpage.js-2.9.4.tgz#b07de9c146c95c042d28a31e934b8faf334fa0e9"
+  integrity sha1-sH3pwUbJXAQtKKMek0uPrzNPoOk=
+  dependencies:
+    jquery ">=1.6.0"
+
+fullpage.js@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npm.taobao.org/fullpage.js/download/fullpage.js-3.1.0.tgz#521e5673145501ab3a0a3d11284f822392e06941"
+  integrity sha1-Uh5WcxRVAas6Cj0RKE+CI5LgaUE=
+
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/function-bind/download/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
@@ -7798,6 +7826,11 @@ jest-worker@^26.2.1:
     "@types/node" "*"
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
+
+jquery@>=1.6.0:
+  version "3.5.1"
+  resolved "https://registry.npm.taobao.org/jquery/download/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
+  integrity sha1-17TQjhv9uGrS8aPQOeoXMEcXq7U=
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.6.4"
@@ -10922,6 +10955,11 @@ rechoir@^0.6.2:
   integrity sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   dependencies:
     resolve "^1.1.6"
+
+recoil@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npm.taobao.org/recoil/download/recoil-0.1.2.tgz#844c612f535826dbe54c977761a67ded16f6d063"
+  integrity sha1-hExhL1NYJtvlTJd3YaZ97Rb20GM=
 
 redent@^1.0.0:
   version "1.0.0"

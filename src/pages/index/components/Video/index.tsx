@@ -5,40 +5,19 @@ import 'video.js/dist/video-js.css';
 
 import './index.less';
 
-export default class VideoPlayer extends React.Component {
+interface VideoPlayerProps {
+  src: string;
+}
+
+export default class VideoPlayer extends React.Component<VideoPlayerProps> {
   state = {
     play: true,
-    didMount: false,
   };
   videoNode: HTMLVideoElement;
   player: any;
   componentDidMount() {
     // instantiate Video.js
-    this.player = videojs(this.videoNode, { ...this.props }, () => {
-      this.setState({ didMount: true }, () => {
-        const res = this.player.play();
-        if (res) {
-          res.finally(() => {});
-        }
-      });
-    });
-
-    document.addEventListener('WeixinJSBridgeReady', this.playVideo, false);
-
-    //@ts-ignore
-    window.wx.config({
-      // 配置信息, 即使不正确也能使用 wx.ready
-      debug: false,
-      appId: 'gh_1a8c118653f8',
-      timestamp: 1,
-      nonceStr: '',
-      signature: '',
-      jsApiList: [],
-    });
-    //@ts-ignore
-    window.wx.ready(function() {
-      this.player.play();
-    });
+    this.player = videojs(this.videoNode, { ...this.props }, () => {});
   }
 
   // destroy player on unmount
@@ -46,8 +25,6 @@ export default class VideoPlayer extends React.Component {
     if (this.player) {
       this.player.dispose();
     }
-
-    document.removeEventListener('WeixinJSBridgeReady', this.playVideo, false);
   }
 
   playVideo = () => {
@@ -78,6 +55,7 @@ export default class VideoPlayer extends React.Component {
   };
 
   render() {
+    const { src } = this.props;
     return (
       <div
         onClick={this.togglePlay}
@@ -90,15 +68,11 @@ export default class VideoPlayer extends React.Component {
             className="video-js my-video"
             preload="auto"
             data-setup="{}"
-            autoPlay
             loop
             webkit-playsInline
             playsInline
           >
-            <source
-              src="https://mp4.vjshi.com/2020-02-12/b80f178923f85a4e4d3a24b1beaf048d.mp4"
-              type="video/mp4"
-            />
+            <source src={src} type="video/mp4" />
           </video>
         </div>
       </div>
