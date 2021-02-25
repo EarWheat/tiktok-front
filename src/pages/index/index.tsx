@@ -1,17 +1,27 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 import { RecoilRoot } from 'recoil';
 
 import Video from './components/Video';
 import { Comment, CommentIcon } from './components/Comment';
+import { fetchMedias } from '../../services';
+import { Media } from '../../interface';
+
+const useData = () => {
+  const [data] = useState<Media[]>(() => {
+    const res = fetchMedias();
+    return res.data;
+  });
+  return data;
+};
 
 const Fullpage = () => {
   const ref = React.useRef([]);
+  const data = useData();
 
   const afterLoad = useCallback(
     (origin, destination) => {
       const destinationVideoPlayer = ref.current[destination.index];
-      const originVideoPlayer = ref.current[origin.index];
       if (destinationVideoPlayer && destinationVideoPlayer.player) {
         document.addEventListener(
           'WeixinJSBridgeReady',
@@ -29,6 +39,7 @@ const Fullpage = () => {
         destinationVideoPlayer.player.play();
       }
 
+      const originVideoPlayer = ref.current[origin.index];
       if (
         origin.index !== destination.index &&
         originVideoPlayer &&
@@ -40,23 +51,32 @@ const Fullpage = () => {
     [ref.current],
   );
 
-  const data = [
-    {
-      id: '1',
-      src:
-        'https://mp4.vjshi.com/2020-02-12/b80f178923f85a4e4d3a24b1beaf048d.mp4',
-    },
-    {
-      id: '2',
-      src:
-        'https://mp4.vjshi.com/2019-11-21/0735dcbcb5fa2e5ee5e4fb7639f2a06d.mp4',
-    },
-    {
-      id: '3',
-      src:
-        'https://mp4.vjshi.com/2019-01-07/b49262c14070bfff694139590812f798.mp4',
-    },
-  ];
+  const render = useCallback(() => {
+    return (
+      <div>
+        {data.map((item, index) => {
+          return (
+            <div className="section" key={index}>
+              <Video
+                src={item.resource}
+                ref={v => {
+                  if (ref.current.length < data.length) {
+                    ref.current.push(v);
+                  }
+                }}
+              />
+              <CommentIcon commentId={item.mediaId} />
+            </div>
+          );
+        })}
+      </div>
+    );
+  }, [data]);
+
+  if (data.length === 0) {
+    return null;
+  }
+
   return (
     <RecoilRoot>
       {/** @ts-ignore */}
@@ -66,27 +86,7 @@ const Fullpage = () => {
         continuousVertical
         scrollingSpeed={500} /* Options here */
         afterLoad={afterLoad}
-        render={() => {
-          return (
-            <div>
-              {data.map((item, index) => {
-                return (
-                  <div className="section" key={index}>
-                    <Video
-                      src={item.src}
-                      ref={v => {
-                        if (ref.current.length < data.length) {
-                          ref.current.push(v);
-                        }
-                      }}
-                    />
-                    <CommentIcon commentId={item.id} />
-                  </div>
-                );
-              })}
-            </div>
-          );
-        }}
+        render={render}
       />
       <Comment />
     </RecoilRoot>
