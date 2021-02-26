@@ -8,21 +8,28 @@ export const fetchMedias = () => {
 };
 
 export const fetchComments = (mediaId: string) => {
-  //   return axios.get(
-  //     `http://106.54.76.130:8080/confucius/comment/getCommentList?mediaId=${mediaId}`,
-  //   );
-  return Promise.resolve({
-    errNo: 0,
-    errMsg: 'success',
-    data: [
-      {
-        userName: '张三',
-        commentId: '7fcf133384aa457997bb5d68663ff511',
-        mediaId: '3451e401fc134abe9760613a687a0aee',
-        content: '嗑死新垣结衣和堺雅人了！～',
-        createTime: '1971-01-01 00:00:00',
-        updateTime: '1971-01-01 00:00:00',
-      },
-    ],
-  });
+  return axios.get(
+    `http://106.54.76.130:8080/confucius/comment/getCommentList?mediaId=${mediaId}`,
+  );
+  //   return Promise.resolve({
+  //     errNo: 0,
+  //     errMsg: 'success',
+  //     data: [
+  //       {
+  //         userName: '张三',
+  //         commentId: '7fcf133384aa457997bb5d68663ff511',
+  //         mediaId: '3451e401fc134abe9760613a687a0aee',
+  //         content: '嗑死新垣结衣和堺雅人了！～',
+  //         createTime: '1971-01-01 00:00:00',
+  //         updateTime: '1971-01-01 00:00:00',
+  //       },
+  //     ],
+  //   });
+};
+
+export const postComment = params => {
+  return axios.post(
+    `http://106.54.76.130:8080/confucius/comment/publicComment`,
+    params,
+  );
 };
