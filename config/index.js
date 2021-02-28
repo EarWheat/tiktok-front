@@ -38,7 +38,7 @@ const config = {
     },
   },
   h5: {
-    publicPath: 'https://jinxin0112.github.io/tiktok/',
+    publicPath: 'http://106.54.76.130:9999/',
     staticDirectory: 'static',
     postcss: {
       autoprefixer: {
