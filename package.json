@@ -27,7 +27,8 @@
     "dev:qq": "npm run build:qq -- --watch",
     "dev:jd": "npm run build:jd -- --watch",
     "dev:quickapp": "npm run build:quickapp -- --watch",
-    "publish": "yarn run build:h5 && git add . && git commit -m 'update' && git push"
+    "upload": "scp -r docs root@106.54.76.130:/usr/local/nginx/project/tiktok",
+    "publish": "yarn run build:h5 && git add . && git commit -m 'update' && git push && yarn run upload"
   },
   "browserslist": [
     "last 3 versions",
