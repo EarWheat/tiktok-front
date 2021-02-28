@@ -1,7 +1,7 @@
 const config = {
   projectName: 'tiktok',
   date: '2021-2-24',
-  designWidth: 375,
+  designWidth: 750,
   deviceRatio: {
     640: 2.34 / 2,
     750: 1,
@@ -9,7 +9,7 @@ const config = {
     375: 2 / 1,
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: 'docs',
   plugins: [],
   defineConstants: {},
   copy: {
