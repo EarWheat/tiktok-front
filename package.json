@@ -45,6 +45,7 @@
     "@tarojs/taro": "3.0.28",
     "@videojs/themes": "^1.0.1",
     "axios": "^0.21.1",
+    "classnames": "^2.2.6",
     "fullpage.js": "2.9.4",
     "lodash": "4.17.15",
     "qs": "^6.9.6",

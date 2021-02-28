@@ -33,3 +33,13 @@ export const postComment = params => {
     params,
   );
 };
+
+export const getAuthToken = () => {
+  return axios.get(
+    `http://106.54.76.130:8080/confucius/auth/getToken?product=Baidu`,
+  );
+};
+
+export const postChat = params => {
+  return axios.post(`http://106.54.76.130:8080/confucius/dialog/chat`, params);
+};

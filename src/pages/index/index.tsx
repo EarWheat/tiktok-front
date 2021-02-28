@@ -1,11 +1,17 @@
 import React, { useCallback, useState } from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 import { RecoilRoot } from 'recoil';
+import { AtTabBar } from 'taro-ui';
+import 'taro-ui/dist/style/components/tab-bar.scss';
+import 'taro-ui/dist/style/components/badge.scss';
 
 import Video from './components/Video';
+import Chat from './components/Chat';
 import { Comment, CommentIcon } from './components/Comment';
 import { fetchMedias } from '../../services';
 import { Media } from '../../interface';
+
+import './index.less';
 
 const useData = () => {
   const [data] = useState<Media[]>(() => {
@@ -93,4 +99,28 @@ const Fullpage = () => {
   );
 };
 
-export default Fullpage;
+const tabList = [
+  { title: '看视频', iconType: 'image' },
+  { title: '聊天', iconType: 'message', text: '1', max: 99 },
+];
+
+const App: React.FC = () => {
+  const [current, setCurrent] = useState(0);
+
+  const handleClick = value => {
+    setCurrent(value);
+  };
+  return (
+    <div>
+      <AtTabBar
+        fixed
+        tabList={tabList}
+        onClick={handleClick}
+        current={current}
+      />
+      {current === 0 ? <Fullpage /> : <Chat />}
+    </div>
+  );
+};
+
+export default App;

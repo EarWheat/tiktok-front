@@ -8,6 +8,7 @@ export interface Media {
 
 export interface Comment {
   userName: string;
+  avatar: string;
   commentId: string;
   mediaId: string;
   content: string;

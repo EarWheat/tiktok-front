@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { AtFloatLayout, AtIcon, AtAvatar, AtInput, AtButton } from 'taro-ui';
-import { atom, useRecoilState, useSetRecoilState } from 'recoil';
-import { get, reverse } from 'lodash';
+import { atom, useRecoilState } from 'recoil';
+import { get, sortBy } from 'lodash';
 
 import { fetchComments, postComment } from '../../../../services';
 import { Comment as IComment } from '../../../../interface';
+import { user } from '../../../../user';
 
 import 'taro-ui/dist/style/components/float-layout.scss';
 import 'taro-ui/dist/style/components/avatar.scss';
@@ -28,20 +29,22 @@ const commentAtom = atom<{
   },
 });
 
-const useData = (mediaId: string) => {
+const useData = (mediaId: string, isOpened: boolean) => {
   const [data, setData] = useState<IComment[]>([]);
   useEffect(() => {
-    const init = async () => {
-      try {
-        const res = await fetchComments(mediaId);
-        setData(get(res, 'data.data') || []);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    if (isOpened) {
+      const init = async () => {
+        try {
+          const res = await fetchComments(mediaId);
+          setData(get(res, 'data.data') || []);
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
-    init();
-  }, []);
+      init();
+    }
+  }, [isOpened]);
 
   return data;
 };
@@ -67,7 +70,7 @@ export const Comment: React.FC = () => {
         await postComment({
           mediaId,
           content: value,
-          userName: '郭麒麟',
+          ...user,
         });
         const res = await fetchComments(mediaId);
         setComment(pre => ({
@@ -82,6 +85,11 @@ export const Comment: React.FC = () => {
     }
   }, [mediaId, value]);
 
+  const nextData = sortBy(
+    data.map((item, index) => ({ ...item, index: data.length - index })),
+    ['index'],
+  );
+
   return (
     <AtFloatLayout
       isOpened={isOpened}
@@ -90,11 +98,11 @@ export const Comment: React.FC = () => {
       onClose={onClose}
     >
       <div className="comment-main">
-        {data.map((item, index) => (
+        {nextData.map((item, index) => (
           <div key={index} className="comment">
             <AtAvatar
               circle
-              text={item.userName}
+              image={item.avatar}
               size="small"
               className="comment-avatar"
             ></AtAvatar>
@@ -130,9 +138,9 @@ export const Comment: React.FC = () => {
 
 export const CommentIcon: React.FC<{ commentId: string }> = props => {
   const { commentId } = props;
-  const setComment = useSetRecoilState(commentAtom);
+  const [{ isOpened, mediaId }, setComment] = useRecoilState(commentAtom);
 
-  const data = useData(commentId);
+  const data = useData(commentId, isOpened);
 
   const onOpen = useCallback(() => {
     setComment({
@@ -140,6 +148,12 @@ export const CommentIcon: React.FC<{ commentId: string }> = props => {
       data,
       mediaId: commentId,
     });
+  }, [data]);
+
+  useEffect(() => {
+    if (commentId === mediaId) {
+      setComment(pre => ({ ...pre, data }));
+    }
   }, [data]);
 
   return (
