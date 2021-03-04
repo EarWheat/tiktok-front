@@ -72,6 +72,7 @@ const Chat: React.FC = () => {
       token,
       request: {
         query: value,
+        user_id: user.userId
       },
     });
 

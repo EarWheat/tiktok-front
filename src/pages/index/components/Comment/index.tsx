@@ -86,7 +86,10 @@ export const Comment: React.FC = () => {
   }, [mediaId, value]);
 
   const nextData = sortBy(
-    data.map((item, index) => ({ ...item, index: data.length - index })),
+    (Array.isArray(data) ? data : []).map((item, index) => ({
+      ...item,
+      index: data.length - index,
+    })),
     ['index'],
   );
 
